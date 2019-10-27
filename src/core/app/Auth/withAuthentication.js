@@ -1,18 +1,29 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { withCookies } from 'react-cookie'
 
-export default function (ComposedComponent) {
+
+export default function (ComposedComponent, tag, ...rest) {
       
      const Authenticate = (props) => {
-        
-        const { isAuthenticated } = window.fakeAuth;
 
+        const renderComponent  = () => {
+            if(tag === 'shipping') {
+                const  createLabel = rest[0];
+                return <ComposedComponent {...props} onComplete={createLabel} />
+            }
+            else{
+                const isLabelReady = rest[0];
+                return <ComposedComponent {...props} success={isLabelReady} />
+            }
+        };
+    
         return (
-            (isAuthenticated) ? <ComposedComponent {...props} />
+            (props.cookies.get('Auth') || false) ? renderComponent()
                             : <Redirect to='/login' />
         )
 
      }
 
-     return Authenticate;
+     return withCookies(Authenticate);
 }

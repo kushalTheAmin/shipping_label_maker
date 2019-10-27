@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom'
+import { useCookies } from 'react-cookie';
 
 const Login = (props) => {
 
     const [refferRedirect, toggleAuthenication] = useState(false);
+    const [cookies, setCookie] = useCookies(['Auth']);
 
     useEffect(() => {
         const { history } = props;
-        if (window.fakeAuth.isAuthenticated) {
+        if (cookies.Auth.isAuthenticated) {
             history.push('/shipping')
         }
     })
 
     const onLogin = () => {
-        window.fakeAuth.isAuthenticated = true;
-        toggleAuthenication(true);
+        setCookie('Auth', true)
+        toggleAuthenication(cookies.Auth);
     }
 
     return (

@@ -1,7 +1,7 @@
 // lifted and modified from node module to transpilation issue with anciant webpack
 
 const autoBind = (self, opts) => {
-    const options = Object.assing({}, opts);
+    const options = Object.assign({}, opts);
 
 	const filter = key => {
 		const match = pattern => typeof pattern === 'string' ? key === pattern : pattern.test(key);
@@ -47,7 +47,7 @@ const excludedReactMethods = [
 	'forceUpdate'
 ];
 
-module.exports.react = (self, opts) => {
+autoBind.react = (self, opts) => {
     const options = Object.assign({}, opts);
     options.exclude = (options.exclude || []).concate(excludedReactMethods);
 
