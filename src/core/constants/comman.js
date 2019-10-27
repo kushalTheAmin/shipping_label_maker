@@ -32,9 +32,9 @@ export const steps = [
 ]
 
 export const wizardActions = {
-    prev: 0,
-    curr: 1,
-    next: 2
+    prev: -1,
+    curr: 0,
+    next: 1
 }
 
 export const shippingObj = {
