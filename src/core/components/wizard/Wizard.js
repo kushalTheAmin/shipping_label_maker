@@ -11,11 +11,6 @@ export default class Wizard extends React.Component {
         super(props);
         const { wizardContext } = this.props;
         this.state = {
-            showPreviousBtn: false,
-            showNextBtn: true,
-            showConfirm: false,
-            compState: 1, //our starting step
-            showNavigation: true,
             wizardContext: wizardContext,
             wizardActions,
             errorObj: {}
@@ -64,7 +59,7 @@ export default class Wizard extends React.Component {
 
     render() {
         const { header: Header } = this.props;
-        const { wizardActions: { prev, next } } = this.state;
+        const { wizardActions: { prev, next, curr } } = this.state;
         const StepComponent = this.getStepComponentName();
         return (
             <div className='container'>
@@ -75,19 +70,21 @@ export default class Wizard extends React.Component {
                 <div className="step-container">
                     <StepComponent />
                 </div>
-                <button
-                    type='button'
-                    onClick={this.handleComplete}
-                >
-                    Confim
-                </button>
+
+                {
+                    (curr === 4) && <button
+                        type='button'
+                        onClick={this.handleComplete}
+                    >
+                        Confim
+                    </button>
+                } 
 
                 <Navigation
                     showPrev={!(prev<0)}
                     showNext={!(next>4)}
                     next={this.onNext}
                     prev={this.onPrev}
-                    show={this.state.showNavigation}
                 />
 
             </div>
