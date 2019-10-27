@@ -3,7 +3,7 @@ import autoBind from '../../utils/auto-bind'
 import PropTypes from "prop-types";
 
 import Navigation from '../../components/navigation';
-import { wizardActions, steps } from '../../constants/comman';
+import { wizardActions, steps, stepMapping } from '../../constants/comman';
 
 export default class Wizard extends React.Component {
 
@@ -11,7 +11,7 @@ export default class Wizard extends React.Component {
         super(props);
         const { wizardContext } = this.props;
         this.state = {
-            wizardContext: wizardContext,
+            wizardContext,
             wizardActions,
             errorObj: {}
         };
@@ -20,12 +20,55 @@ export default class Wizard extends React.Component {
     }
 
     handleComplete () {
-        console.log(this.props)
+        const { wizardContext } = this.state;
         const { onComplete } = this.props;
-        onComplete();
+        onComplete(wizardContext);
         setTimeout(() => {
             this.props.history.push('/label')
         }, 100);
+    }
+
+    handleFilter(event) {
+        const { from, to, weight, shipping } = stepMapping;
+
+        const typeOfComponenent = event.target.getAttribute("data-step");
+        if (
+          typeOfComponenent === from ||
+          typeOfComponenent === to
+        ) {
+          this.handleNested(event);
+        }  else if (
+          typeOfComponenent === weight ||
+          typeOfComponenent === shipping
+        ) {
+          this.handleState(event);
+        }
+    }
+
+    handleNested(event) {
+        const key = event.target.getAttribute("data-id"),
+          stage = event.target.getAttribute("data-step"),
+          value = event.target.value;
+        this.setState(prevState => ({
+          ...prevState,
+          wizardContext: {
+            ...prevState.wizardContext,
+            [stage]: {
+              ...prevState.wizardContext[stage],
+              [key]: value
+            }
+          }
+        }));
+    }
+
+    handleState(event) {
+        const { wizardContext } = this.state;
+
+        const key = event.target.getAttribute("data-id"),
+          value = event.target.value;
+        this.setState({
+          wizardContext: { ...wizardContext, [key]: value }
+        });
     }
 
     onNext () {
@@ -59,7 +102,7 @@ export default class Wizard extends React.Component {
 
     render() {
         const { header: Header } = this.props;
-        const { wizardActions: { prev, next, curr } } = this.state;
+        const { wizardActions: { prev, next, curr }, wizardContext } = this.state;
         const StepComponent = this.getStepComponentName();
         return (
             <div className='container'>
@@ -68,7 +111,10 @@ export default class Wizard extends React.Component {
                 </div>
 
                 <div className="step-container">
-                    <StepComponent />
+                    <StepComponent 
+                         onAction={this.handleFilter}
+                         wizardContext={wizardContext}
+                    />
                 </div>
 
                 {

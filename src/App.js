@@ -15,7 +15,7 @@ import {
 
 import withAuthenticaion from '../src/core/app/Auth/withAuthentication';
 
-const App = (props) => {
+const App = () => {
 
   const [labelData, createLabelData] = useState({
     isLabelReady: false,
@@ -24,7 +24,8 @@ const App = (props) => {
 
   const createLabel = (data) => { 
     createLabelData({
-      isLabelReady: true
+      isLabelReady: true,
+      wizardContext: data
     })
   }
 
@@ -32,7 +33,7 @@ const App = (props) => {
 
   return (
     <div className="App">
-      <Router history>
+      <Router>
         <Route path='/login' component={Login} />
         <Route path='/shipping' component={withAuthenticaion(Wizard, 'shipping', createLabel, Header, wizardContext, steps)} />
         <Route path='/label' component={withAuthenticaion(ShippingLabel, 'label', isLabelReady, wizardContext)} />
