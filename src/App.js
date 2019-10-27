@@ -29,7 +29,7 @@ function App(props) {
     <div className="App">
       <Router history>
         <Route path='/login' component={Login} />
-        <Route path='/shipping' component={withAuthenticaion(Wizard, 'shipping', createLabel)} />
+        <Route path='/shipping' component={withAuthenticaion(Wizard, 'shipping', createLabel, )} />
         <Route path='/label' component={withAuthenticaion(ShippingLabel, 'label', isLabelReady)} />
       </Router>
     </div>

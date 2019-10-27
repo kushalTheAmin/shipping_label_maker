@@ -1,6 +1,6 @@
 import React from "react";
 import autoBind from '../../utils/auto-bind'
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 export default class Wizard extends React.Component {
 
@@ -21,11 +21,15 @@ export default class Wizard extends React.Component {
     render() {
         return (
             <div> in Wizard.. 
+
+                <div className="step-container">
+
+                </div>
                 <button
                     type='button'
                     onClick={this.handleComplete}
                 >
-                click to onComplete
+                Confim
                 </button>
 
             </div>
@@ -34,9 +38,9 @@ export default class Wizard extends React.Component {
     }
 }
 
-// Wizard.propTypes = {
-//   header: PropTypes.func.isRequired,
-//   steps: PropTypes.array.isRequired,
-//   wizardContext: PropTypes.object.isRequired,
-//   onComplete: PropTypes.func.isRequired
-// };
+Wizard.propTypes = {
+  header: PropTypes.func.isRequired,
+  steps: PropTypes.array.isRequired,
+  wizardContext: PropTypes.object.isRequired,
+  onComplete: PropTypes.func.isRequired
+};

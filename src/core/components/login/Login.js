@@ -9,7 +9,7 @@ const Login = (props) => {
 
     useEffect(() => {
         const { history } = props;
-        if (cookies.Auth.isAuthenticated) {
+        if (cookies.Auth) {
             history.push('/shipping')
         }
     })
