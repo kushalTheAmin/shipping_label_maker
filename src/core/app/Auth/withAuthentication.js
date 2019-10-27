@@ -9,12 +9,23 @@ export default function (ComposedComponent, tag, ...rest) {
 
         const renderComponent  = () => {
             if(tag === 'shipping') {
-                const  createLabel = rest[0];
-                return <ComposedComponent {...props} onComplete={createLabel} />
+                const createLabel = rest[0];
+                const Header = rest[1];
+                const labelData = rest[2];
+                const steps = rest[3]
+                
+                return <ComposedComponent {...props} 
+                            onComplete={createLabel} 
+                            header={Header}
+                            wizardContext={labelData}
+                            steps={steps} 
+                        />
             }
             else{
                 const isLabelReady = rest[0];
-                return <ComposedComponent {...props} success={isLabelReady} />
+                const labelData = rest[1];
+
+                return <ComposedComponent {...props} success={isLabelReady} displayData={labelData}/>
             }
         };
     

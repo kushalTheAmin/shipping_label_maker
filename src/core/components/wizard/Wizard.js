@@ -6,6 +6,17 @@ export default class Wizard extends React.Component {
 
     constructor(props) {
         super(props);
+        const { wizardContext } = this.props;
+        this.state = {
+            showPreviousBtn: false,
+            showNextBtn: true,
+            showConfirm: false,
+            compState: 1, //our starting step
+            showNavigation: true,
+            wizardContext: wizardContext,
+            errorObj: {}
+        };
+
         autoBind(this);
     }
 
@@ -19,8 +30,12 @@ export default class Wizard extends React.Component {
     }
 
     render() {
+        const { header: Header } = this.props;
         return (
-            <div> in Wizard.. 
+            <div className='container'>
+                <div className='page-header'> 
+                    <Header />
+                </div>
 
                 <div className="step-container">
 
@@ -29,7 +44,7 @@ export default class Wizard extends React.Component {
                     type='button'
                     onClick={this.handleComplete}
                 >
-                Confim
+                    Confim
                 </button>
 
             </div>

@@ -3,6 +3,10 @@ import './App.css';
 import Login from './core/components/login'
 import Wizard from './core/components/wizard'
 import ShippingLabel from './core/app/features/shipping-label-maker/ShippingLabel';
+import Header from './core/components/header';
+import steps from './core/app/features/shipping-label-maker/Steps';
+import { shippingObj } from './core/constants/comman';
+
 
 import {
   BrowserRouter as Router,
@@ -11,26 +15,27 @@ import {
 
 import withAuthenticaion from '../src/core/app/Auth/withAuthentication';
 
-function App(props) {
+const App = (props) => {
 
-  const [flags, toggleFlags] = useState({
-    isLabelReady: false
+  const [labelData, createLabelData] = useState({
+    isLabelReady: false,
+    wizardContext: shippingObj 
   })
 
-  const createLabel = () => { 
-    toggleFlags({
+  const createLabel = (data) => { 
+    createLabelData({
       isLabelReady: true
     })
   }
 
-  const { isLabelReady } = flags;
+  const { isLabelReady, wizardContext = {} } = labelData;
 
   return (
     <div className="App">
       <Router history>
         <Route path='/login' component={Login} />
-        <Route path='/shipping' component={withAuthenticaion(Wizard, 'shipping', createLabel, )} />
-        <Route path='/label' component={withAuthenticaion(ShippingLabel, 'label', isLabelReady)} />
+        <Route path='/shipping' component={withAuthenticaion(Wizard, 'shipping', createLabel, Header, wizardContext, steps)} />
+        <Route path='/label' component={withAuthenticaion(ShippingLabel, 'label', isLabelReady, wizardContext)} />
       </Router>
     </div>
   );
