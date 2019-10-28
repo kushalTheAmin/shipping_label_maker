@@ -5,7 +5,7 @@ import { getshippingOption, getShippingRate } from '../../../../utils/calculatio
 
 const ConfirmStep = (props) => {
 
-    const { wizardContext } = props;
+    const { wizardContext, onAction } = props;
 
     const gettoFrom = (keye) => {
         return Object.keys(wizardContext[keye]).map((val, i) => {
@@ -42,12 +42,20 @@ const ConfirmStep = (props) => {
             <p> Shipping Method: {getshippingOptions()} </p>
             <p> Shipping Cost: {getShippingCost()} </p>
             <p> To update information click previous below </p>
+            <button
+                type='button'
+                data-step={stepMapping.confirm}
+                onClick={onAction}
+            >
+                Confirm
+            </button>
         </div>
     )
 }
 
 ConfirmStep.propTypes = {
-  wizardContext: PropTypes.object.isRequired
+  wizardContext: PropTypes.object.isRequired,
+  onAction: PropTypes.func.isRequired
 };
 
 export default ConfirmStep;

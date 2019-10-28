@@ -30,6 +30,7 @@ export default class Wizard extends React.Component {
 
     handleFilter(event) {
         const { from, to, weight, shipping } = stepMapping;
+        const { wizardContext } = this.state;
 
         const typeOfComponenent = event.target.getAttribute("data-step");
         if (
@@ -40,8 +41,11 @@ export default class Wizard extends React.Component {
         }  else if (
           typeOfComponenent === weight ||
           typeOfComponenent === shipping
-        ) {
+        )  
+        {
           this.handleState(event);
+        } else if (typeOfComponenent === stepMapping.confirm) {
+            this.handleComplete(wizardContext);
         }
     }
 
@@ -102,7 +106,7 @@ export default class Wizard extends React.Component {
 
     render() {
         const { header: Header } = this.props;
-        const { wizardActions: { prev, next, curr }, wizardContext } = this.state;
+        const { wizardActions: { prev, next }, wizardContext } = this.state;
         const StepComponent = this.getStepComponentName();
         return (
             <div className='container'>
@@ -116,15 +120,6 @@ export default class Wizard extends React.Component {
                          wizardContext={wizardContext}
                     />
                 </div>
-
-                {
-                    (curr === 4) && <button
-                        type='button'
-                        onClick={this.handleComplete}
-                    >
-                        Confim
-                    </button>
-                } 
 
                 <Navigation
                     showPrev={!(prev<0)}
