@@ -35,9 +35,9 @@ const ConfirmStep = (props) => {
         <div>
             <h6> Confirm your information </h6>
             <p> From Information </p>
-            <ul>{gettoFrom(stepMapping.from)}</ul>
+            <ul className="confirm-list">{gettoFrom(stepMapping.from)}</ul>
             <p> To Information </p>
-            <ul>{gettoFrom(stepMapping.to)}</ul>
+            <ul className="confirm-list">{gettoFrom(stepMapping.to)}</ul>
             <p> Shipping Weight: {wizardContext.weight} </p>
             <p> Shipping Method: {getshippingOptions()} </p>
             <p> Shipping Cost: {getShippingCost()} </p>

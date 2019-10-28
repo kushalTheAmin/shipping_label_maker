@@ -4,8 +4,8 @@ const hidden = {
     display: 'none'
 }
 const Navigation = props => (
-    <div>
-        
+    <div className='navigation-container'>
+
         <button style={props.showPrev ? {} : hidden}
             className="btn--prev"
             onClick={props.prev}>Previous</button>

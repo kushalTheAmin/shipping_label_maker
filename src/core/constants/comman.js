@@ -7,27 +7,27 @@ export const steps = [
     {
         name: 'From-Step',
         index: 0,
-        api: 'FromStep'
+        api: 'from'
     },
     {
         name: 'To-Step',
         index: 1,
-        api: 'ToStep'
+        api: 'to'
     },
     {
         name: 'Weight-Step',
         index: 2,
-        api: 'WeightStep'
+        api: 'weight'
     },
     {
         name: 'Shipping-Step',
         index: 3,
-        api: 'ShippingStep'
+        api: 'shipping'
     },
     {
         name: 'Confirm-Step',
         index: 4,
-        api: 'ConfirmStep'
+        api: 'confirm'
     }
 ]
 
