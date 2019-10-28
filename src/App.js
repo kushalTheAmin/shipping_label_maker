@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
+import Home from './core/components/home'
 import Login from './core/components/login'
 import Wizard from './core/components/wizard'
 import ShippingLabel from './core/app/features/shipping-label-maker/ShippingLabel';
@@ -34,9 +35,10 @@ const App = () => {
   return (
     <div className="App">
       <Router>
-        <Route path='/login' component={Login} />
-        <Route path='/shipping' component={withAuthenticaion(Wizard, 'shipping', createLabel, Header, wizardContext, steps)} />
-        <Route path='/label' component={withAuthenticaion(ShippingLabel, 'label', isLabelReady, wizardContext)} />
+          <Route exact path='/' component={Home} />
+          <Route path='/login' component={Login} />
+          <Route path='/shipping' component={withAuthenticaion(Wizard, 'shipping', createLabel, Header, wizardContext, steps)} />
+          <Route path='/label' component={withAuthenticaion(ShippingLabel, 'label', isLabelReady, wizardContext)} />
       </Router>
     </div>
   );
