@@ -3,6 +3,7 @@ import autoBind from '../../utils/auto-bind'
 import PropTypes from "prop-types";
 
 import Navigation from '../../components/navigation';
+import ProgressBar from '../../components/progressbar';
 import { wizardActions, steps, stepMapping } from '../../constants/comman';
 
 import { validatorObj } from "../../utils/errorCheck";
@@ -132,13 +133,18 @@ export default class Wizard extends React.Component {
 
     render() {
         const { header: Header } = this.props;
-        const { wizardActions: { prev, next }, wizardContext, errorObj } = this.state;
+        const { wizardActions: { prev, next, curr }, wizardContext, errorObj } = this.state;
         const StepComponent = this.getStepComponentName();
         return (
             <div className='container'>
                 <div className='page-header'> 
                     <Header />
                 </div>
+
+                <ProgressBar
+                    step={curr+1}
+                    length={5}
+                />
 
                 <div className="step-container">
                     <StepComponent 
